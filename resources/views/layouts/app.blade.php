@@ -9,6 +9,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    {{-- Alpine.js --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -76,5 +79,7 @@
             @yield('content')
         </main>
     </div>
+
+    <x-flash-message />
 </body>
 </html>

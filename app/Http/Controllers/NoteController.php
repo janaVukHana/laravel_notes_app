@@ -13,9 +13,9 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Note $notes)
+    public function index()
     {
-        $notes = Note::all();
+        $notes = Note::where('user_id', auth()->user()->id)->latest('updated_at')->get();
 
         return view('notes.index', compact('notes'));
     }
@@ -48,7 +48,7 @@ class NoteController extends Controller
 
         Note::create($formFields);
 
-        return redirect('/notes');
+        return to_route('notes.index')->with('success', 'New note added.');
     }
 
     /**
@@ -70,7 +70,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        //
+        return view('notes.edit', compact('note'));
     }
 
     /**
@@ -82,7 +82,14 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        //
+        $formFields = $request->validate([
+            'title' => 'required|min:6',
+            'content' => 'required'
+        ]);
+
+        $note->update($formFields);
+
+        return to_route('notes.index')->with('success', 'Note updated.');
     }
 
     /**
@@ -93,6 +100,8 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+
+        return to_route('notes.index')->with('success', 'Note deleted.');
     }
 }

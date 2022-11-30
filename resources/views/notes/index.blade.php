@@ -11,7 +11,12 @@
                 @forelse ($notes as $note)
                     <div class="mb-3 p-2 bg-secondary border rounded-end text-white">
                         <h2><a class="text-decoration-none text-white" href="{{route('notes.show', $note)}}">{{ $note->title }}</a></h2>
-                        <p>Note content</p>
+                        <p>{{ $note->content }}</p>
+                        <form action="{{route('notes.destroy', $note)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 @empty
                     {{-- code here what if there is no any notes --}}
