@@ -15,7 +15,10 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::where('user_id', auth()->user()->id)->latest('updated_at')->get();
+        // THREE WAYS WITH GET AND PAGINATE
+        // $notes = Note::where('user_id', auth()->user()->id)->latest('updated_at')->get();
+        // $notes = auth()->user()->notes()->latest('updated_at')->get();
+        $notes = Note::whereBelongsTo(auth()->user())->latest('updated_at')->paginate(3);
 
         return view('notes.index', compact('notes'));
     }
@@ -59,6 +62,11 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
+
+        if(auth()->user()->id != $note->id) {
+            abort(403);
+        }
+
         return view('notes.show', compact('note'));
     }
 
@@ -70,6 +78,10 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
+        if(auth()->user()->id != $note->id) {
+            abort(403);
+        }
+
         return view('notes.edit', compact('note'));
     }
 
@@ -82,6 +94,10 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
+        if(auth()->user()->id != $note->id) {
+            abort(403);
+        }
+
         $formFields = $request->validate([
             'title' => 'required|min:6',
             'content' => 'required'
@@ -100,6 +116,10 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
+        if(auth()->user()->id != $note->id) {
+            abort(403);
+        }
+
         $note->delete();
 
         return to_route('notes.index')->with('success', 'Note deleted.');
