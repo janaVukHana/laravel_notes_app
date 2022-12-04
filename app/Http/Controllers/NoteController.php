@@ -63,7 +63,8 @@ class NoteController extends Controller
     public function show(Note $note)
     {
 
-        if(auth()->user()->id != $note->id) {
+        // probably can use Policy here...
+        if(auth()->user()->id != $note->user_id) {
             abort(403);
         }
 
@@ -78,7 +79,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        if(auth()->user()->id != $note->id) {
+        if(auth()->user()->id != $note->user_id) {
             abort(403);
         }
 
@@ -94,7 +95,7 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        if(auth()->user()->id != $note->id) {
+        if(auth()->user()->id != $note->user_id) {
             abort(403);
         }
 
@@ -116,7 +117,7 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        if(auth()->user()->id != $note->id) {
+        if(auth()->user()->id != $note->user_id) {
             abort(403);
         }
 

@@ -4,23 +4,49 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Your Notes</h1>
-            <a href="{{ route('notes.create') }}" class="btn btn-primary">Add New Note</a>
+            @if (request()->routeIs('notes.index'))
+                <h1>Your Notes</h1>  
+            @else
+                <h1>Trash</h1>
+            @endif
+
+            @if (request()->routeIs('notes.index'))
+                <a href="{{ route('notes.create') }}" class="btn btn-primary">Add New Note</a>
+            @endif
 
             <div class="mt-3">
                 @forelse ($notes as $note)
                     <div class="mb-3 p-2 bg-secondary border rounded-end text-white">
                         <div class="d-flex">
-                            <p class="me-3">Created: {{ $note->created_at->diffForHumans() }}</p>
-                            <p>Updated: {{ $note->updated_at->diffForHumans() }}</p>
+                            @if (request()->routeIs('notes.index'))
+                                <p class="me-3">Created: {{ $note->created_at->diffForHumans() }}</p>
+                                <p>Updated: {{ $note->updated_at->diffForHumans() }}</p>   
+                            @else
+                                <p>Deleted: {{ $note->deleted_at->diffForHumans() }}</p>   
+                            @endif
                         </div>
-                        <h2><a class="text-decoration-none text-white" href="{{route('notes.show', $note)}}">{{ $note->title }}</a></h2>
+                        <h2>
+                            <a 
+                                class="text-decoration-none text-white" 
+                                @if(request()->routeIs('notes.index'))
+                                    href="{{route('notes.show', $note)}}"
+                                @else
+                                    href="{{route('trashed.show', $note)}}"
+                                @endif
+                            >
+                                {{ $note->title }}
+                            </a>
+                        </h2>
                         <p>{{ Str::limit($note->content, 10) }}</p>
                     </div>
                 @empty
                     {{-- code here what if there is no any notes --}}
                     <div class="mb-3 p-2 bg-secondary border rounded-end text-white">
-                        <h2>You don't have any notes.</h2>
+                        @if (request()->routeIs('notes.index'))
+                            <h2>You don't have any notes.</h2>
+                        @else
+                            <h2>No items in trash.</h2>
+                        @endif
                     </div>
                 @endforelse
             </div>

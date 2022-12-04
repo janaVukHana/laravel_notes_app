@@ -18,6 +18,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
 </head>
 <body>
     <div id="app">
@@ -38,14 +39,8 @@
                             <a class="nav-link {{request()->is('notes') ? 'active' : ''}}" href="{{ route('notes.index') }}">Notes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Trash</a>
+                            <a class="nav-link {{request()->is('trashed') ? 'active' : ''}}" href="{{ route('trashed.index') }}">Trash</a>
                         </li>
-                        {{-- <li class="nav-item active">
-                            <a class="nav-link active" href="{{ route('notes.index') }}">Notes</a>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('trashed.index') }}">Trash</a>
-                        </li> --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->
