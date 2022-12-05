@@ -13,9 +13,9 @@
                         @method('PATCH')
 
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
+                            <label for="title" class="col-form-label">{{ __('Title') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                 <input 
                                     id="title" 
                                     type="text" 
@@ -35,9 +35,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="content" class="col-md-4 col-form-label text-md-end">{{ __('Content') }}</label>
+                            <label for="content" class="col-form-label">{{ __('Content') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                 <textarea 
                                     id="content" 
                                     type="text" 
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </button>

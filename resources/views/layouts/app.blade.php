@@ -16,6 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+     <!-- Font Awesome -->
+     <script defer="" src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{-- @vite(['resources/js/app.js']) --}}

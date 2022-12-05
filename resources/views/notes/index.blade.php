@@ -11,13 +11,15 @@
             @endif
 
             @if (request()->routeIs('notes.index'))
-                <a href="{{ route('notes.create') }}" class="btn btn-primary">Add New Note</a>
+                <a href="{{ route('notes.create') }}" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add New Note
+                </a>
             @endif
 
             <div class="mt-3">
                 @forelse ($notes as $note)
-                    <div class="mb-3 p-2 bg-secondary border rounded-end text-white">
-                        <div class="d-flex">
+                    <div class="mb-3 p-2 bg-white border rounded-end text-dark">
+                        <div class="d-flex text-muted">
                             @if (request()->routeIs('notes.index'))
                                 <p class="me-3">Created: {{ $note->created_at->diffForHumans() }}</p>
                                 <p>Updated: {{ $note->updated_at->diffForHumans() }}</p>   
@@ -27,7 +29,7 @@
                         </div>
                         <h2>
                             <a 
-                                class="text-decoration-none text-white" 
+                                class="text-decoration-none text-dark" 
                                 @if(request()->routeIs('notes.index'))
                                     href="{{route('notes.show', $note)}}"
                                 @else
@@ -37,11 +39,11 @@
                                 {{ $note->title }}
                             </a>
                         </h2>
-                        <p>{{ Str::limit($note->content, 10) }}</p>
+                        <p>{{ Str::limit($note->content, 150) }}</p>
                     </div>
                 @empty
                     {{-- code here what if there is no any notes --}}
-                    <div class="mb-3 p-2 bg-secondary border rounded-end text-white">
+                    <div class="mb-3 p-2 border rounded-end text-dark">
                         @if (request()->routeIs('notes.index'))
                             <h2>You don't have any notes.</h2>
                         @else
